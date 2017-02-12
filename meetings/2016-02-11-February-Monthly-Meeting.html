@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>San Diego FP - February Monthly Meeting</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        <img src="../static/img/fplogo_small.png" />
+        <a href="../">San Diego Functional Programmers</a>
+      </h1>
+      <navigation>
+        <ul>
+          <li><a href="../#about">About</a></li>
+          <li><a href="../#events">Events</a></li>
+          <li><a href="../#speak">Speak</a></li>
+          <li><a href="../#contact">Contact</a></li>
+        </ul>
+      </navigation>
+    </header>
+    <article id="content">
+      <h1>February Monthly Meeting</h1>
+
+<div class="info">
+    Posted on February 11, 2016
+    
+</div>
+
+<article class="post-content">
+  <p>There are a couple of options this time around. Pick 1. Pick ’em all. It’s up to you.</p>
+<h2 id="kata-1---huttons-razor">Kata 1 - Hutton’s Razor</h2>
+<p>This kata was taken from <a href="http://www.codewars.com/kata/543833d86f032f0942000264">Code Wars</a>, and is also described in the following <a href="http://www.cs.nott.ac.uk/~pszgmh/semantics.pdf">paper</a></p>
+<p>Hutton’s Razor is a simple language that has exactly two pieces: integer constants and an addition operation. In this kata you must develop an interpreter for it.</p>
+<p>Here is an example AST for Hutton’s Razor in Haskell</p>
+<pre><code>data Razor
+  = Lit Int
+  | Add Razor Razor</code></pre>
+<p>An an addition operation could be written, in Haskell, as</p>
+<pre><code>ex1 = Add (Lit 1) (Lit 2)
+
+ex2 = Add (Lit 10) (Add (Lit 11) (Lit 12))</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Implement an interpreter for Hutton’s Razor. For example the program <code>Add (Lit 1) (Add (Lit 2) (Lit 3))</code> would return <code>6</code>.</p></li>
+<li><p>Implement a pretty-printer; surround all <code>Add</code> operations with parenthesis. Spaces are not necessary. For example, the program <code>Add (Lit 1) (Lit 2)</code> would return <code>&quot;(1+2)&quot;</code></p></li>
+</ol>
+<h2 id="kata-2---oragami">Kata 2 - Oragami</h2>
+<p>Folds are a family higher-order functions that process a data structure and build up a return value. Many different data structures can be folded, but we’ll focus on lists for now.</p>
+<p>The <code>foldr</code> function processes a list from right to left using an accumulator function and and initial value. In Haskell, the type of <code>foldr</code> (when constrained to lists) looks like this:</p>
+<pre><code>foldr :: (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b</code></pre>
+<p>The function <code>foldl</code> is very much like <code>foldr</code> but with a <a href="https://%20wiki.haskell.org/Foldr_Foldl_Foldl'">few differences</a>. Among those differences is the order of arguments to the accumulator function, and the fact that the list is process from left to right. The type of <code>foldl</code> looks like this:</p>
+<pre><code>foldl :: (b -&gt; a -&gt; b) -&gt; b -&gt; [a] -&gt; b</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>Implement <code>foldr</code>.</p></li>
+<li><p>Implement <code>foldrl</code></p></li>
+<li>Folds are the basis for many of the most commonly know functions in FP. You can use it to define <code>map</code>, <code>filter</code>, etc. Define the following list functions using <code>foldr</code> or <code>foldl</code></li>
+</ol>
+<ul>
+<li><code>sum</code>, which calculates the sum of a list of integers</li>
+<li><code>length</code>, which returns the number of elements in a list</li>
+<li><code>minList</code> &amp; <code>maxList</code>, which return the smallest and largest elements in a list of integers.</li>
+<li><code>reverse</code>, which reverse a list</li>
+<li><code>map</code>, which takes a function that transforms an element of type <code>a</code> into an element of type <code>b</code>, and a list of elements of type <code>a</code>, then returns a list of type <code>b</code></li>
+<li><code>inits</code>, which returns all of the initial segments of a list. For example: <code>inits [1, 2, 3] = [[], [1], [1, 2], [1, 2, 3]]</code></li>
+</ul>
+<h2 id="kata-3---not-quite-lisp">Kata 3 - Not Quite Lisp</h2>
+<p>This kata comes from <a href="http://adventofcode.com/day/1">Advent Of Code</a>, though we’ve changed the wording since it’s no longer December.</p>
+<p>UPS is trying to deliver packages in a large apartment building, but they can’t find the right floor - the directions they received are a little confusing. The delivery person starts on the ground floor (floor 0) and then follows the instructions one character at a time.</p>
+<p>An opening parenthesis, <code>(</code>, means he should go up one floor, and a closing parenthesis, <code>)</code>, means he should go down one floor.</p>
+<p>The apartment building is very tall, and the basement is very deep; UPS will never find the top or bottom floors.</p>
+<p>For example:</p>
+<ul>
+<li><code>(())</code> and <code>()()</code> both result in floor <code>0</code></li>
+<li><code>(((</code> and <code>(()(()(</code> both result in floor <code>3</code></li>
+<li><code>))(((((</code> also results in floor <code>3</code></li>
+<li><code>())</code> and <code>))(</code> both result in floor <code>-1</code>, which is the first basement floors</li>
+<li><code>)))</code> and <code>)())())</code> both result in floor -3</li>
+</ul>
+<p>What floor do <a href="https://github.com/SanDiegoKats/katas/tree/master/2016-02-11/instructions.txt">these instructions</a> take UPS to.</p>
+<p>What is the position of the first character that causes UPS to enter the basement? The first character in the instructions is position 1, the second is position 2, and so on.</p>
+<p>For example:</p>
+<ul>
+<li><code>)</code> causes them to enter the basement at character position <code>1</code>.</li>
+<li><code>()())</code> causes them to enter the basement at character position <code>5</code></li>
+</ul>
+<p>What is the position of the character that causes UPS to first enter the basement?</p>
+</article>
+
+    </article>
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+</html>

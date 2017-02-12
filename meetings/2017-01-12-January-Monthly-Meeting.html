@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>San Diego FP - January Monthly Meeting</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/main.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        <img src="../static/img/fplogo_small.png" />
+        <a href="../">San Diego Functional Programmers</a>
+      </h1>
+      <navigation>
+        <ul>
+          <li><a href="../#about">About</a></li>
+          <li><a href="../#events">Events</a></li>
+          <li><a href="../#speak">Speak</a></li>
+          <li><a href="../#contact">Contact</a></li>
+        </ul>
+      </navigation>
+    </header>
+    <article id="content">
+      <h1>January Monthly Meeting</h1>
+
+<div class="info">
+    Posted on January 12, 2017
+    
+</div>
+
+<article class="post-content">
+  <blockquote>
+<p>This is kata comes from the Cork chapter of Functional Kats. It’s a little bigger in scope, and more advanced that previous katas, but it’ll be good to step outside more trivia-style katas that we’ve done in the past.</p>
+</blockquote>
+<h2 id="katter">Katter</h2>
+<p>This Kata is to create a small service in the FP language and framework of your choice. There are two REST endpoints to be exposed, but feel free to make the service as feature rich as you like!</p>
+<p>The service will be a stripped down version of Twitter. It is up to you to go as far with the implementation as you like. This can include a DB or just an in-memory store of some sort.</p>
+<p>You can even add a UI if you like, or, you could build solely a UI to consume this REST service in the FP language and framework of your choice. e.g Elm, Clojurescript, Purescript.</p>
+<p>During our meetup, we can have some fun connecting up UI implementations to different service implementations.</p>
+<p>The REST service should support the following 2 endpoints with related JSON structures:</p>
+<h2 id="post-a-message-from-a-user">Post a message from a User</h2>
+<p>POST HOSTNAME/katter/messages</p>
+<p>JSON Body</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+	<span class="st">&quot;username&quot;</span><span class="op">:</span> <span class="st">&quot;priort&quot;</span><span class="op">,</span>
+	<span class="st">&quot;message&quot;</span><span class="op">:</span> <span class="st">&quot;a humorous tweet&quot;</span><span class="op">,</span>
+	<span class="st">&quot;mentions&quot;</span><span class="op">:</span> [<span class="st">&quot;jcretel&quot;</span><span class="op">,</span> <span class="st">&quot;dodonovan&quot;</span>]
+<span class="op">}</span></code></pre></div>
+<p>The “mentions” property is optional and can be used if you want to add an endpoint to retrieve all mentions of a user.</p>
+<p>JSON Response 200</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="op">{</span>
+	<span class="st">&quot;messasgeId&quot;</span><span class="op">:</span> <span class="dv">12</span>
+<span class="op">}</span></code></pre></div>
+<h2 id="retrieve-all-messages-that-were-posted-by-a-user">Retrieve all messages that were posted by a user</h2>
+<p>GET HOSTNAME/katter/messages?username=“priort”</p>
+<p>JSON Response 200</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">[<span class="op">{</span>
+	<span class="st">&quot;username&quot;</span><span class="op">:</span> <span class="st">&quot;priort&quot;</span><span class="op">,</span>
+	<span class="st">&quot;message&quot;</span><span class="op">:</span> <span class="st">&quot;a humorous tweet 1&quot;</span><span class="op">,</span>
+	<span class="st">&quot;mentions&quot;</span><span class="op">:</span> [<span class="st">&quot;enoonan&quot;</span>]
+<span class="op">},</span> <span class="op">{</span>
+	<span class="st">&quot;username&quot;</span><span class="op">:</span> <span class="st">&quot;priort&quot;</span><span class="op">,</span>
+	<span class="st">&quot;message&quot;</span><span class="op">:</span> <span class="st">&quot;a humorous tweet 2&quot;</span><span class="op">,</span>
+	<span class="st">&quot;mentions&quot;</span><span class="op">:</span> [<span class="st">&quot;hmurphy&quot;</span><span class="op">,</span> <span class="st">&quot;jdillon&quot;</span>]
+<span class="op">},</span> <span class="op">{</span>
+	<span class="st">&quot;username&quot;</span><span class="op">:</span> <span class="st">&quot;priort&quot;</span><span class="op">,</span>
+	<span class="st">&quot;message&quot;</span><span class="op">:</span> <span class="st">&quot;a humorous tweet 3&quot;</span><span class="op">,</span>
+	<span class="st">&quot;mentions&quot;</span><span class="op">:</span> [<span class="st">&quot;bobrien&quot;</span>]
+<span class="op">}</span>]</code></pre></div>
+<h2 id="add-any-more-endpoints-you-like.">Add any more endpoints you like.</h2>
+<p>For example and endpoint that gets all messages that a user was mentioned in.</p>
+<p>GET HOSTNAME/katter/messages?mentioned=“priort”</p>
+<p>JSON Response 200</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">[<span class="op">{</span>
+	<span class="st">&quot;username&quot;</span><span class="op">:</span> <span class="st">&quot;enoonan&quot;</span><span class="op">,</span>
+	<span class="st">&quot;message&quot;</span><span class="op">:</span> <span class="st">&quot;a humorous tweet 1&quot;</span><span class="op">,</span>
+	<span class="st">&quot;mentions&quot;</span><span class="op">:</span> [<span class="st">&quot;priort&quot;</span><span class="op">,</span> <span class="st">&quot;bobrien&quot;</span>]
+<span class="op">},</span> <span class="op">{</span>
+	<span class="st">&quot;username&quot;</span><span class="op">:</span> <span class="st">&quot;hmurphy&quot;</span><span class="op">,</span>
+	<span class="st">&quot;message&quot;</span><span class="op">:</span> <span class="st">&quot;a humorous tweet 2&quot;</span><span class="op">,</span>
+	<span class="st">&quot;mentions&quot;</span><span class="op">:</span> [<span class="st">&quot;priort&quot;</span><span class="op">,</span> <span class="st">&quot;enoonan&quot;</span>]
+<span class="op">}</span>]</code></pre></div>
+<p>Or, maybe, an endpoint to post a reply to a message from a user.</p>
+</article>
+
+    </article>
+    <footer>
+      Site proudly generated by
+      <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+    </footer>
+  </body>
+</html>
